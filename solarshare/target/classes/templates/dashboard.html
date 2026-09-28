@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - SolarShare</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: #f4f8f5;
+            color: #26352b;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, #0f5132, #198754);
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 35px;
+            padding-left: 8px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: #ffd43b;
+            color: #0f5132;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .logo h4 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .logo small {
+            color: #d9f5e4;
+            font-size: 11px;
+        }
+
+        .nav-link {
+            color: #e8f7ee;
+            padding: 13px 15px;
+            margin-bottom: 7px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255,255,255,0.16);
+            color: white;
+        }
+
+        .nav-link i {
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 32px;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h2 {
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .welcome p {
+            color: #718078;
+            margin: 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 23px;
+            box-shadow: 0 5px 18px rgba(20,70,40,0.07);
+            height: 100%;
+        }
+
+        .stat-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            margin-bottom: 16px;
+        }
+
+        .green {
+            background: #e0f4e8;
+            color: #198754;
+        }
+
+        .yellow {
+            background: #fff4c7;
+            color: #d89e00;
+        }
+
+        .blue {
+            background: #e0f0ff;
+            color: #2878c8;
+        }
+
+        .purple {
+            background: #eee5ff;
+            color: #7040b5;
+        }
+
+        .stat-card h6 {
+            color: #718078;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .stat-card h3 {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-card span {
+            color: #829088;
+            font-size: 12px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 5px 18px rgba(20,70,40,0.07);
+        }
+
+        .panel-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .quick-card {
+            border: 1px solid #e3ebe5;
+            border-radius: 12px;
+            padding: 18px;
+            text-decoration: none;
+            color: #26352b;
+            display: block;
+            transition: 0.2s;
+            height: 100%;
+        }
+
+        .quick-card:hover {
+            border-color: #198754;
+            transform: translateY(-2px);
+        }
+
+        .quick-card i {
+            font-size: 24px;
+            color: #198754;
+            margin-bottom: 10px;
+        }
+
+        .quick-card h6 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .quick-card p {
+            color: #718078;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 25px;
+            color: #718078;
+        }
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 75px;
+                padding: 20px 10px;
+            }
+
+            .logo h4,
+            .logo small,
+            .nav-link span {
+                display: none;
+            }
+
+            .logo {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .nav-link {
+                justify-content: center;
+                padding: 13px 5px;
+            }
+
+            .main {
+                margin-left: 75px;
+                padding: 22px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .main {
+                padding: 18px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            <i class="bi bi-sun-fill"></i>
+        </div>
+
+        <div>
+            <h4>SolarShare</h4>
+            <small>Community Energy</small>
+        </div>
+
+    </div>
+
+    <nav>
+
+        <a href="/dashboard" class="nav-link active">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="/households" class="nav-link">
+            <i class="bi bi-houses-fill"></i>
+            <span>Households</span>
+        </a>
+
+        <a href="/generation" class="nav-link">
+            <i class="bi bi-sun-fill"></i>
+            <span>Solar Generation</span>
+        </a>
+
+        <a href="/consumption" class="nav-link">
+            <i class="bi bi-lightning-charge-fill"></i>
+            <span>Consumption</span>
+        </a>
+
+        <a href="/ledger" class="nav-link">
+            <i class="bi bi-calculator-fill"></i>
+            <span>Net Usage</span>
+        </a>
+
+        <a href="/summary" class="nav-link">
+            <i class="bi bi-bar-chart-fill"></i>
+            <span>Energy Summary</span>
+        </a>
+
+    </nav>
+
+</div>
+
+
+<div class="main">
+
+    <div class="welcome">
+
+        <h2>SolarShare Dashboard</h2>
+
+        <p>
+            Monitor community solar generation, household consumption and net energy usage.
+        </p>
+
+    </div>
+
+
+    <!-- STAT CARDS -->
+
+    <div class="row g-4">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    <i class="bi bi-houses-fill"></i>
+                </div>
+
+                <h6>Total Households</h6>
+
+                <h3 id="householdCount">0</h3>
+
+                <span>Registered households</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon yellow">
+                    <i class="bi bi-sun-fill"></i>
+                </div>
+
+                <h6>Total Solar Generated</h6>
+
+                <h3 id="solarTotal">0.00 kWh</h3>
+
+                <span>Recorded generation</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+
+                <h6>Total Consumption</h6>
+
+                <h3 id="consumptionTotal">0.00 kWh</h3>
+
+                <span>Recorded consumption</span>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    <i class="bi bi-calculator-fill"></i>
+                </div>
+
+                <h6>Net Usage Records</h6>
+
+                <h3 id="ledgerCount">0</h3>
+
+                <span>Calculated records</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="panel">
+
+        <h5 class="panel-title">
+            Quick Actions
+        </h5>
+
+        <div class="row g-3">
+
+            <div class="col-md-3">
+
+                <a href="/households" class="quick-card">
+
+                    <i class="bi bi-house-add-fill d-block"></i>
+
+                    <h6>Manage Households</h6>
+
+                    <p>
+                        Add and manage community households.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <a href="/generation" class="quick-card">
+
+                    <i class="bi bi-sun-fill d-block"></i>
+
+                    <h6>Record Generation</h6>
+
+                    <p>
+                        Record daily rooftop solar generation.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <a href="/consumption" class="quick-card">
+
+                    <i class="bi bi-lightning-charge-fill d-block"></i>
+
+                    <h6>Record Consumption</h6>
+
+                    <p>
+                        Track household electricity usage.
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <a href="/ledger" class="quick-card">
+
+                    <i class="bi bi-calculator-fill d-block"></i>
+
+                    <h6>Calculate Net Usage</h6>
+
+                    <p>
+                        Calculate solar-adjusted household usage.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SYSTEM STATUS -->
+
+    <div class="panel">
+
+        <h5 class="panel-title">
+            SolarShare System
+        </h5>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+
+                <div class="p-3 rounded-3 bg-success-subtle">
+
+                    <strong class="text-success">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        Backend Connected
+                    </strong>
+
+                    <p class="mb-0 mt-1 small text-secondary">
+                        Spring Boot REST services are active.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="p-3 rounded-3 bg-success-subtle">
+
+                    <strong class="text-success">
+                        <i class="bi bi-database-check me-2"></i>
+                        Database Ready
+                    </strong>
+
+                    <p class="mb-0 mt-1 small text-secondary">
+                        SolarShare data is managed through MySQL.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="p-3 rounded-3 bg-warning-subtle">
+
+                    <strong class="text-warning-emphasis">
+                        <i class="bi bi-sun-fill me-2"></i>
+                        Solar Tracking
+                    </strong>
+
+                    <p class="mb-0 mt-1 small text-secondary">
+                        Generation and consumption are being tracked.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    async function loadDashboard() {
+
+        try {
+
+            const [
+                householdsResponse,
+                generationResponse,
+                consumptionResponse,
+                ledgerResponse
+            ] = await Promise.all([
+
+                fetch("/api/households"),
+
+                fetch("/api/solar-generation"),
+
+                fetch("/api/consumption"),
+
+                fetch("/api/net-usage")
+
+            ]);
+
+
+            if (
+                !householdsResponse.ok ||
+                !generationResponse.ok ||
+                !consumptionResponse.ok ||
+                !ledgerResponse.ok
+            ) {
+
+                throw new Error(
+                    "Unable to load dashboard data"
+                );
+
+            }
+
+
+            const households =
+                await householdsResponse.json();
+
+            const generations =
+                await generationResponse.json();
+
+            const consumptions =
+                await consumptionResponse.json();
+
+            const ledgers =
+                await ledgerResponse.json();
+
+
+            let solarTotal = 0;
+
+            generations.forEach(record => {
+
+                solarTotal +=
+                    Number(record.generatedKwh);
+
+            });
+
+
+            let consumptionTotal = 0;
+
+            consumptions.forEach(record => {
+
+                consumptionTotal +=
+                    Number(record.consumedKwh);
+
+            });
+
+
+            document.getElementById(
+                "householdCount"
+            ).textContent =
+                households.length;
+
+
+            document.getElementById(
+                "solarTotal"
+            ).textContent =
+                solarTotal.toFixed(2) + " kWh";
+
+
+            document.getElementById(
+                "consumptionTotal"
+            ).textContent =
+                consumptionTotal.toFixed(2) + " kWh";
+
+
+            document.getElementById(
+                "ledgerCount"
+            ).textContent =
+                ledgers.length;
+
+
+        } catch (error) {
+
+            console.error(
+                "Dashboard error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    loadDashboard();
+
+</script>
+
+</body>
+</html>
